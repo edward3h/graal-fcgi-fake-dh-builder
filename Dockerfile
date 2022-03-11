@@ -11,7 +11,7 @@ RUN  curl -s "https://get.sdkman.io" | bash && \
     echo "sdkman_auto_answer=true" > $SDKMAN_DIR/etc/config && \
     echo "sdkman_auto_selfupdate=false" >> $SDKMAN_DIR/etc/config && \
     echo "sdkman_insecure_ssl=true" >> $SDKMAN_DIR/etc/config && \
-    bash -c ". /root/.sdkman/bin/sdkman-init.sh && sdk install java 21.2.0.r16-grl"
+    bash -c ". /root/.sdkman/bin/sdkman-init.sh && sdk install java 22.0.0.2.r17-grl"
 ENV JAVA_HOME=${SDKMAN_DIR}/candidates/java/current
 RUN curl -LA gradle-completion https://edub.me/gradle-completion-bash -o /etc/bash_completion.d/gradle-completion.bash
 RUN git clone https://github.com/dougborg/gdub.git && \
