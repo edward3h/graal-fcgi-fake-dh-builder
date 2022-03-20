@@ -15,3 +15,4 @@ cd /out
 jar -c -f hello.jar -e hello.Hello -C /out/ .
 native-image --install-exit-handlers --no-fallback -jar hello.jar hello_app
 EOF
+docker run --rm -it -v "$PWD/build/out:/app" ghcr.io/edward3h/fake_dh:v0.1 /app/hello_app
