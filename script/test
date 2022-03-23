@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+set -euo pipefail
 
 PROJECT_PATH=$(git rev-parse --show-toplevel)
 
