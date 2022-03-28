@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+PROJECT_PATH=$(git rev-parse --show-toplevel)
+
+BUILD="$PROJECT_PATH/build"
+mkdir -p "$BUILD/out"
+
+IMAGE_TAG="graal_builder:test"
+docker build -t "$IMAGE_TAG" "$PROJECT_PATH" | tee "$BUILD/build.log" || exit 1
+
+docker run --rm -i -v "$PROJECT_PATH/test:/src:ro" -v "$BUILD/out:/out" "$IMAGE_TAG" bash << EOF
+cd /src
+javac -d /out hello/Hello.java
+cd /out
+jar -c -f hello.jar -e hello.Hello -C /out/ .
+native-image --install-exit-handlers --no-fallback -jar hello.jar hello_app
+EOF
+docker run --rm -it -v "$PWD/build/out:/app" ghcr.io/edward3h/fake_dh:v0.1 /app/hello_app
