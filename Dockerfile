@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:26.04
 
 # hadolint ignore=DL3008
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
